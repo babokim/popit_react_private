@@ -87,6 +87,7 @@ module.exports = (env) => {
         filename: './tag.html',
         chunks: ['tag'],
         inject: true,
+        template :'tag.html'
         // chunksSortMode: 'dependency'
       }),
       new CompressionPlugin(),
