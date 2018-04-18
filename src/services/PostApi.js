@@ -15,6 +15,7 @@ export default class PostApi extends React.Component {
     if (process.env.NODE_ENV === 'production') {
       return "https://www.popit.kr";
     } else {
+      // return "https://www.popit.kr";
       return "http://127.0.0.1:8000";
     }
   };
@@ -33,8 +34,15 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
-  static getPostsByTag = (tagId, excludePostIds, page, pageSize) => {
-    const apiPath = `${PostApi.getApiServer()}/api/PostsByTag?tag=${tagId}&page=${page}&size=${pageSize}&excludes=${excludePostIds}`;
+  static getPostsByTag = (tag, excludePostIds, page, pageSize) => {
+    const apiPath = `${PostApi.getApiServer()}/api/PostsByTag?tag=${tag}&page=${page}&size=${pageSize}&excludes=${excludePostIds}`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  };
+
+  static getPostsByTagId = (tagId, excludePostIds, page, pageSize) => {
+    const apiPath = `${PostApi.getApiServer()}/api/PostsByTagId?id=${tagId}&page=${page}&size=${pageSize}&excludes=${excludePostIds}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())

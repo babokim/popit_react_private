@@ -10,17 +10,20 @@ module.exports = (env) => {
     context: __dirname,  // 모듈 파일 폴더
 
     entry: {
-      app: './src/index.js',
+      home: './src/index.js',
+      tag: './src/tag.js',
       vendor: [
         'react', 'react-dom', 'antd'
       ]
     },
 
     output: {
-      path: __dirname + '/dist/',               // 번들 파일 폴더
-      filename: 'js/[name].[hash].bundle.js',   // 번들 파일 이름 규칙
+      // path: __dirname + '/dist/',               // 번들 파일 폴더
+      // filename: 'js/[name].[hash].bundle.js',   // 번들 파일 이름 규칙
       // sourceMapFilename: 'js/[name].[chunkhash].bundle.map',  // SourceMap 이름 규칙
       // chunkFilename: 'js/[name].[chunkhash].chunk.js',  // Chunk file 이름 규칙
+      path: path.join(__dirname, './bundle/'),
+      filename: '[name].js'
     },
 
     devServer: {
@@ -75,8 +78,16 @@ module.exports = (env) => {
       //   filename: '[name].css'
       // }),
       new HtmlWebpackPlugin({
-        template: './index.html',
-        chunksSortMode: 'dependency'
+        filename: './index.html',
+        chunks: ['home'],
+        inject: true,
+        // chunksSortMode: 'dependency'
+      }),
+      new HtmlWebpackPlugin({
+        filename: './tag.html',
+        chunks: ['tag'],
+        inject: true,
+        // chunksSortMode: 'dependency'
       }),
       new CompressionPlugin(),
     ],

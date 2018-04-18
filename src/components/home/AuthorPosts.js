@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Post from './Post';
-import PostApi from "../services/PostApi";
+import "../popit.css";
+import PostApi from "../../services/PostApi";
 
 const MAX_NUM_POSTS = 2;
 
-export default class TagPosts extends React.Component {
+export default class AuthorPosts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,31 +14,31 @@ export default class TagPosts extends React.Component {
     };
     this.useProps = true;
     this.initShownPosts = [];
-    this.term = null;
+    this.author = null;
     this.page = 0;
   }
 
   getNextTagPost = () => {
     this.useProps = false;
     this.page++;
-    this.getTagPosts();
+    this.getAuthorPosts();
   };
 
   getPrevTagPost = () => {
     this.page--;
     if (this.page === 0) {
       this.setState({
-        posts: this.props.termPosts.posts,
+        posts: this.props.authorPosts.posts,
       });
     } else {
-      this.getTagPosts();
+      this.getAuthorPosts();
     }
   };
 
-  getTagPosts = () => {
+  getAuthorPosts = () => {
     const excludePostIds = this.initShownPosts.map(post => post.id);
 
-    PostApi.getPostsByTag(this.term.id, excludePostIds, this.page, MAX_NUM_POSTS)
+    PostApi.getPostsByAuthor(this.author.id, excludePostIds, this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
@@ -61,15 +62,14 @@ export default class TagPosts extends React.Component {
   };
 
   render() {
-    const { termPosts } = this.props;
-    if (!termPosts) {
+    const { authorPosts } = this.props;
+    if (!authorPosts) {
       return (<div></div>);
     }
+    this.author = authorPosts.author;
 
-    this.term = termPosts.term;
-
-    const posts = this.useProps ? termPosts.posts : this.state.posts;
-    const termLink = `http://www.popit.kr/tag/${this.term.name}`;
+    const posts = this.useProps ? authorPosts.posts : this.state.posts;
+    const authorPostsLink = `http://www.popit.kr/author/${this.author.userLogin}`;
 
     const postItems = posts.map((post, index) => {
       if (index >= MAX_NUM_POSTS) {
@@ -78,11 +78,11 @@ export default class TagPosts extends React.Component {
       if (this.useProps) {
         this.initShownPosts.push(post);
       }
-      const marginRight = index < (MAX_NUM_POSTS - 1) ? 15 : 10;
+      const marginRight = index < (MAX_NUM_POSTS - 1) ? 15 : 0;
       const showNext = index >= (MAX_NUM_POSTS - 1);
       const showPrev = index == 0 && this.page > 0;
       return (
-        <div key={"tag-" + post.id} style={{float: "left", marginRight: marginRight}}>
+        <div key={"author-" + post.id} style={{float: "left", marginRight: marginRight}}>
           <Post post={post}
                 showAuthor={true}
                 showDescription={true}
@@ -94,15 +94,29 @@ export default class TagPosts extends React.Component {
         </div>
       );
     });
+
     return (
       <div>
-        <h2>
-          <a className="author_title" href={termLink}>
-            {this.term.name.toUpperCase()}
-          </a>
-        </h2>
-        <div>{ postItems }</div>
-        <div style={{clear: 'both'}}></div>
+        <div>
+          <span style={{display: 'inline-block'}}>
+            <h2>
+              <a className="author_title"
+                 href={authorPostsLink}>
+                { this.author.displayName }
+              </a>
+            </h2>
+          </span>
+          {
+            this.author.userUrl
+            ?
+              (<span className="author_home"><a href={this.author.userUrl} target="_blank">{this.author.userUrl}</a></span>)
+            :
+              (<span></span>)
+          }
+
+          <div>{ postItems }</div>
+          <div style={{clear: 'both'}}></div>
+        </div>
       </div>
     )
   }

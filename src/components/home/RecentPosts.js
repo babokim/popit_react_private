@@ -1,8 +1,8 @@
 import React from 'react';
 import Post from './Post';
-import PostApi from '../services/PostApi';
+import PostApi from '../../services/PostApi';
 
-import './popit.css';
+import '../popit.css';
 
 const MAX_NUM_POSTS = 4;
 

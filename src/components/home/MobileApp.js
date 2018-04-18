@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout, Menu, Icon, Input, Row, Col, Button } from 'antd';
 import MobilePost from "./MobilePost";
-import './popit.css';
-import GoogleAd from './GoogleAd';
-import PostApi from "../services/PostApi";
+import '../popit.css';
+import GoogleAd from '../GoogleAd';
+import PostApi from "../../services/PostApi";
 
-import popitLogo from '../asset/popit_logo.png';
+import popitLogo from '../../asset/popit_logo.png';
 
 const Search = Input.Search;
 const { Header, Content, Footer, Sider } = Layout;

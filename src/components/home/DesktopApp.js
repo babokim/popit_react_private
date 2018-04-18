@@ -1,13 +1,13 @@
 import React from 'react';
 import { Layout } from 'antd';
-import PopitHeader from "./PopitHeader";
 import RecentPosts from "./RecentPosts";
 import TagPostsList from "./TagPostsList";
 import AuthorPostsList from "./AuthorPostsList";
-import GoogleAd from './GoogleAd';
-import PostApi from "../services/PostApi";
+import GoogleAd from '../GoogleAd';
+import PostApi from "../../services/PostApi";
+import PopitHeader from "../PopitHeader";
 
-import './popit.css';
+import '../popit.css';
 
 const { Content, Footer } = Layout;
 
@@ -37,8 +37,9 @@ export default class DesktopApp extends React.Component {
   };
 
   render() {
-    const { googleAds } = this.state;
+    // const { googleAds } = this.state;
 
+    let googleAds = null;
     let topAd = null;
     let middleAd = null;
     let bottomAd = null;
@@ -54,7 +55,7 @@ export default class DesktopApp extends React.Component {
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
-        <PopitHeader/>
+        <PopitHeader />
         <Content style={{padding: '0 10px', maxWidth: 1360, margin: 'auto auto'}}>
           <div style={{float: 'left', maxWidth: 1040}}>
             <div style={{padding: 15}}>
@@ -100,6 +101,7 @@ export default class DesktopApp extends React.Component {
           popit.kr은 사용권만 가지고 있습니다.
         </Footer>
       </Layout>
-    );
+
+  );
   }
 }

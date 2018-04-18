@@ -1,11 +1,11 @@
 import React from 'react';
 import { Icon, Button, Row, Col } from 'antd';
-import ShareButton from './ShareButton';
-import './popit.css';
+import ShareButton from '../ShareButton';
+import '../popit.css';
 
-import defaultCover1 from '../asset/default_cover1.jpg';
-import defaultCover2 from '../asset/default_cover2.jpg';
-import defaultCover3 from '../asset/default_cover3.jpg';
+import defaultCover1 from '../../asset/default_cover1.jpg';
+import defaultCover2 from '../../asset/default_cover2.jpg';
+import defaultCover3 from '../../asset/default_cover3.jpg';
 
 export default class MobilePost extends React.Component {
   constructor(props) {

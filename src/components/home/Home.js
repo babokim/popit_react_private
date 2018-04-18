@@ -4,7 +4,7 @@ import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detec
 import DesktopApp from './DesktopApp';
 import MobileApp from './MobileApp';
 
-export default class App extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
   }
